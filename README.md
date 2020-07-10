@@ -1,4 +1,4 @@
-# ibgeasy
+# IBGEasy
 Uma forma mais ágil de dispor de alguns dados do IBGE. Depois de me perder no repositório de dados do IBGE sempre que buscava alguma informação resolvi simplificar o caminho.
 
 
