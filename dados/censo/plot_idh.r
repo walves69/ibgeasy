@@ -21,6 +21,25 @@ load("censo_municipios.RData")
 # ATE AQUI TENHO OS VALORES DE IDH POR MUNICIPIO
 
 
+# Pegandos os quartis de todos os munucípios que ai 
+# consigo comparar apenas com brasil
+
+idh_munic_todos <- municipios %>% 
+  dplyr::filter(ANO == ano) %>% 
+  dplyr::select(Codmun7, IDHM)
+
+quartis_municipios <- unname(quantile(idh_munic_todos$IDHM))
+
+teste<-seq(21,29)
+
+# quartis nordeste
+idh_munic_ne <- municipios %>% 
+  dplyr::filter(ANO == ano & (UF == 21 |  UF == 22 | UF == 23 | UF == 24 | UF == 25 | UF == 26 | UF == 27 | UF == 28 | UF == 29) %>% 
+  dplyr::select(Codmun7, IDHM)
+
+quartis_municipios <- unname(quantile(idh_munic_todos$IDHM))
+
+
 ano <- 2010
 idh_munic <- municipios %>% 
   dplyr::filter(ANO == ano & UF == 23) %>% 
@@ -83,7 +102,7 @@ shp_dados_ce@data %>%
 #           palette = "Spectral") +
 #   tm_layout(legend.outside = TRUE,
 #             frame = FALSE,
-            # main.title = paste( "Distribuição do IDH \nnos Municípios do CE\n(", ano, ")" ) )
+# main.title = paste( "Distribuição do IDH \nnos Municípios do CE\n(", ano, ")" ) )
 
 range <- c()
 # faixas de idh
@@ -97,7 +116,7 @@ if (ano == 1991 ) {
 tm_shape(shp = shp_dados_ce) + 
   tm_fill(col = "IDHM", 
           style = "fixed", 
-          breaks = range ,
+          breaks = quartis_municipios ,
           palette = "Spectral") +
   tm_layout(legend.outside = TRUE,
             frame = FALSE,
